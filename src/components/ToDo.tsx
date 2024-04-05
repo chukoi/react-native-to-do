@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { PanGestureHandlerProps } from 'react-native-gesture-handler'
 import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native'
 import { Box, Checkbox, HStack, Icon, Input, Text } from 'native-base'
-import SwipableView from './SwipeableView'
+import SwipeLeftView from './SwipeLeftView'
 import { Feather } from '@expo/vector-icons'
 import { ToDoType } from '../types/todo'
 import { makeStyledComponent } from '../utils/styled'
@@ -115,7 +115,7 @@ const ToDo = (props: ToDoProps) => {
   )
 
   return (
-    <SwipableView
+    <SwipeLeftView
       onSwipeLeft={onRemove}
       backView={
         <Box
@@ -171,7 +171,7 @@ const ToDo = (props: ToDoProps) => {
           </Text>
         )}
       </HStack>
-    </SwipableView>
+    </SwipeLeftView>
   )
 }
 

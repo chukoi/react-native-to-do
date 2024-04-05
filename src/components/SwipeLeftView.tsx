@@ -23,32 +23,32 @@ interface Props extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
   onSwipeLeft?: () => void
 }
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window')
-const SWIPE_THRESHOLD = -SCREEN_WIDTH * 0.2
+const {width: WIDTH } = Dimensions.get('window')
+const THRESHOLD = -WIDTH * 0.2
 
-const SwipeView = (props: Props) => {
-  const { children, backView, onSwipeLeft, simultaneousHandlers } = props
-  const translateX = useSharedValue(0)
+const SwipeLeftView = (props: Props) => {
+  const { children, backView, onSwipeLeft } = props
+  const x = useSharedValue(0)
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: event => {
-      translateX.value = Math.max(-128, Math.min(0, event.translationX))
+      x.value = Math.max(-128, Math.min(0, event.translationX))
     },
     onEnd: () => {
-      const shouldBeDismissed = translateX.value < SWIPE_THRESHOLD
-      if (shouldBeDismissed) {
-        translateX.value = withTiming(-SCREEN_WIDTH)
+      const dismissed = x.value < THRESHOLD
+      if (dismissed) {
+        x.value = withTiming(-WIDTH / 2)
         onSwipeLeft && runOnJS(onSwipeLeft)()
       } else {
-        translateX.value = withTiming(0)
+        x.value = withTiming(0)
       }
     }
   })
 
-  const facadeStyle = useAnimatedStyle(() => ({
+  const style = useAnimatedStyle(() => ({
     transform: [
       {
-        translateX: translateX.value
+        translateX: x.value
       }
     ]
   }))
@@ -63,10 +63,10 @@ const SwipeView = (props: Props) => {
       <PanGestureHandler
         onGestureEvent={panGesture}
       >
-        <StyledView style={facadeStyle}>{children}</StyledView>
+        <StyledView style={style}>{children}</StyledView>
       </PanGestureHandler>
     </StyledView>
   )
 }
 
-export default SwipeView
+export default SwipeLeftView
