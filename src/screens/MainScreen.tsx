@@ -34,7 +34,7 @@ export default function MainScreen() {
         renderInPortal={false}
         size="sm"
         icon={<Icon color="white" as={<AntDesign name="plus" />} size="sm" />}
-        bg={'blue.500'}
+        bg={'green.500'}
         onPress={newToDo}
       />
     </VStack>

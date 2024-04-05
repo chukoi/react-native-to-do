@@ -59,7 +59,7 @@ export const ToDoHandler: React.FC<IToDoHandlerProps> = ({ children }) => {
     })
   }, [])
 
-  const newToDo = useCallback(() => {
+  const newToDo = () => {
     const id = shortid.generate()
     setData([
       {
@@ -70,7 +70,7 @@ export const ToDoHandler: React.FC<IToDoHandlerProps> = ({ children }) => {
       ...data
     ])
     setEditingItemId(id)
-  }, [])
+  }
 
   const provider: IToDoContextValue = useMemo(
     () => ({
